@@ -406,7 +406,7 @@ export default class Calendar extends React.Component {
       }
     });
 
-    let daysinmonth = rows.map((d) => {
+    let daysinmonth = rows.map((d, i) => {
       const key = uuidv4();
       if (d.length > 0) {
         return (

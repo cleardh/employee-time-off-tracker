@@ -10,15 +10,17 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addRequest = (formData, calendarId) => (dispatch, getState) => {
   console.log(formData, calendarId);
 
   axios
-    .post('http://localhost:5000/api/request', formData, tokenConfig(getState))
+    .post(`${PROXY}/api/request`, formData, tokenConfig(getState))
     .then((res) =>
       axios
         .post(
-          'http://localhost:5000/api/calendar',
+          `${PROXY}/api/calendar`,
           {
             calendarId: calendarId,
             requestId: res.data._id,
@@ -51,13 +53,13 @@ export const addRequest = (formData, calendarId) => (dispatch, getState) => {
 export const deleteRequest = (request) => (dispatch, getState) => {
   axios
     .delete(
-      `http://localhost:5000/api/request/${request._id}`,
+      `${PROXY}/api/request/${request._id}`,
       tokenConfig(getState)
     )
     .then((res) => {
       axios
         .delete(
-          `http://localhost:5000/api/calendar/${request.user.calendarId}/${res.data.googleEventId}`,
+          `${PROXY}/api/calendar/${request.user.calendarId}/${res.data.googleEventId}`,
           tokenConfig(getState)
         )
         .then((res) => {
@@ -82,7 +84,7 @@ export const deleteRequest = (request) => (dispatch, getState) => {
 export const generateReport = (dateRange) => (dispatch, getState) => {
   axios
     .post(
-      'http://localhost:5000/api/request/report',
+      `${PROXY}/api/request/report`,
       dateRange,
       tokenConfig(getState)
     )
@@ -101,7 +103,7 @@ export const generateReport = (dateRange) => (dispatch, getState) => {
 
 export const getAllRequests = () => (dispatch, getState) => {
   axios
-    .get(`http://localhost:5000/api/request`, tokenConfig(getState))
+    .get(`${PROXY}/api/request`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_REQUESTS,
@@ -119,7 +121,7 @@ export const getAllRequests = () => (dispatch, getState) => {
 export const getRequestsByOrg = (orgId) => (dispatch, getState) => {
   axios
     .get(
-      `http://localhost:5000/api/request/org/${orgId}`,
+      `${PROXY}/api/request/org/${orgId}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -139,7 +141,7 @@ export const getRequestsByOrg = (orgId) => (dispatch, getState) => {
 export const getRequestsByEmployee = (employeeId) => (dispatch, getState) => {
   axios
     .get(
-      `http://localhost:5000/api/request/${employeeId}`,
+      `${PROXY}/api/request/${employeeId}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -162,7 +164,7 @@ export const getConfirmedRequestsByEmployee = (employeeId) => (
 ) => {
   axios
     .get(
-      `http://localhost:5000/api/request/confirmed/${employeeId}`,
+      `${PROXY}/api/request/confirmed/${employeeId}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -185,7 +187,7 @@ export const getConfirmedRequestsByEmployeeCategory = (
 ) => (dispatch, getState) => {
   axios
     .get(
-      `http://localhost:5000/api/request/confirmed/${employeeId}/${categoryId}`,
+      `${PROXY}/api/request/confirmed/${employeeId}/${categoryId}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -207,7 +209,7 @@ export const confirmRequest = (request) => (dispatch, getState) => {
 
   axios
     .put(
-      `http://localhost:5000/api/request/${request._id}`,
+      `${PROXY}/api/request/${request._id}`,
       null,
       tokenConfig(getState)
     )
@@ -215,7 +217,7 @@ export const confirmRequest = (request) => (dispatch, getState) => {
       // Delete event from google calendar
       axios
         .delete(
-          `http://localhost:5000/api/calendar/${request.user.calendarId}/${res.data.googleEventId}`,
+          `${PROXY}/api/calendar/${request.user.calendarId}/${res.data.googleEventId}`,
           tokenConfig(getState)
         )
         .catch((err) =>
@@ -227,7 +229,7 @@ export const confirmRequest = (request) => (dispatch, getState) => {
       // Add event to google calendar
       axios
         .post(
-          'http://localhost:5000/api/calendar',
+          `${PROXY}/api/calendar`,
           {
             calendarId: request.user.calendarId,
             requestId: request._id,

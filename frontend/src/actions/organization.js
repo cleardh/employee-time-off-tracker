@@ -15,17 +15,19 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addOrganization = (formData) => (dispatch, getState) => {
   axios
     .post(
-      'http://localhost:5000/api/organization',
+      `${PROXY}/api/organization`,
       formData,
       tokenConfig(getState)
     )
     .then((res) => {
       axios
         .put(
-          `http://localhost:5000/api/organization/${res.data._id}/add-member`,
+          `${PROXY}/api/organization/${res.data._id}/add-member`,
           { member: formData.head },
           tokenConfig(getState)
         )
@@ -58,7 +60,7 @@ export const addOrganization = (formData) => (dispatch, getState) => {
 export const deleteOrganization = (id) => (dispatch, getState) => {
   axios
     .delete(
-      `http://localhost:5000/api/organization/${id}`,
+      `${PROXY}/api/organization/${id}`,
       tokenConfig(getState)
     )
     .then((res) => {
@@ -85,14 +87,14 @@ export const clearMemberOrganizations = () => (dispatch) => {
 export const updateOrganization = (id, formData) => (dispatch, getState) => {
   axios
     .put(
-      `http://localhost:5000/api/organization/${id}`,
+      `${PROXY}/api/organization/${id}`,
       formData,
       tokenConfig(getState)
     )
     .then((res) => {
       axios
         .put(
-          `http://localhost:5000/api/organization/${res.data._id}/add-member`,
+          `${PROXY}/api/organization/${res.data._id}/add-member`,
           { member: formData.head },
           tokenConfig(getState)
         )
@@ -128,7 +130,7 @@ export const addMemberToOrganization = (orgId, member) => (
 ) => {
   axios
     .put(
-      `http://localhost:5000/api/organization/${orgId}/add-member`,
+      `${PROXY}/api/organization/${orgId}/add-member`,
       member,
       tokenConfig(getState)
     )
@@ -152,7 +154,7 @@ export const deleteMemberFromOrganization = (orgId, email) => (
 ) => {
   axios
     .put(
-      `http://localhost:5000/api/organization/${orgId}/${email}`,
+      `${PROXY}/api/organization/${orgId}/${email}`,
       null,
       tokenConfig(getState)
     )
@@ -172,7 +174,7 @@ export const deleteMemberFromOrganization = (orgId, email) => (
 
 export const getAllOrganizations = () => (dispatch, getState) => {
   axios
-    .get('http://localhost:5000/api/organization', tokenConfig(getState))
+    .get(`${PROXY}/api/organization`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ORGANIZATIONS,
@@ -190,7 +192,7 @@ export const getAllOrganizations = () => (dispatch, getState) => {
 export const getOrganizationsByMember = (email) => (dispatch, getState) => {
   axios
     .get(
-      `http://localhost:5000/api/organization/member/${email}`,
+      `${PROXY}/api/organization/member/${email}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -212,7 +214,7 @@ export const getOrganizationByTitle = (title) => (dispatch, getState) => {
 
   axios
     .get(
-      `http://localhost:5000/api/organization/title/${title}`,
+      `${PROXY}/api/organization/title/${title}`,
       tokenConfig(getState)
     )
     .then((res) =>
@@ -232,7 +234,7 @@ export const getOrganizationByTitle = (title) => (dispatch, getState) => {
 export const getOrganizationsByHead = (headId) => (dispatch, getState) => {
   axios
     .get(
-      `http://localhost:5000/api/organization/head/${headId}`,
+      `${PROXY}/api/organization/head/${headId}`,
       tokenConfig(getState)
     )
     .then((res) =>

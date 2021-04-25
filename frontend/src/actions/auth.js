@@ -9,6 +9,8 @@ import {
   LOGOUT,
 } from './types';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 // Set x-auth-token in headers
 export const tokenConfig = (getState) => {
   return {
@@ -29,7 +31,7 @@ export const loadUser = () => (dispatch) => {
       },
     };
     axios
-      .get('http://localhost:5000/api/auth', config)
+      .get(`${PROXY}/api/auth`, config)
       .then((res) =>
         dispatch({
           type: USER_LOADED,
@@ -47,7 +49,7 @@ export const loadUser = () => (dispatch) => {
 export const authenticate = () => (dispatch, getState) => {
   // Get token & store it in reducer
   axios
-    .get('http://localhost:5000/api/auth/google/success')
+    .get(`${PROXY}/api/auth/google/success`)
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       return res;
@@ -55,7 +57,7 @@ export const authenticate = () => (dispatch, getState) => {
     .then((res) => {
       // Load user & store it in reducer
       axios
-        .get('http://localhost:5000/api/auth', tokenConfig(getState))
+        .get(`${PROXY}/api/auth`, tokenConfig(getState))
         .then((res) =>
           dispatch({
             type: USER_LOADED,
@@ -81,7 +83,7 @@ export const authenticate = () => (dispatch, getState) => {
 export const register = (formData, id, history) => (dispatch, getState) => {
   axios
     .put(
-      `http://localhost:5000/api/employee/${id}`,
+      `${PROXY}/api/employee/${id}`,
       formData,
       tokenConfig(getState)
     )
@@ -102,7 +104,7 @@ export const register = (formData, id, history) => (dispatch, getState) => {
 
 // Sign in user
 export const login = () => (dispatch) => {
-  window.open('http://localhost:5000/api/auth/google', '_self');
+  window.open(`${PROXY}/api/auth/google`, '_self');
 };
 
 // Sign out user

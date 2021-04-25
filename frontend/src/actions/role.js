@@ -10,9 +10,11 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addRole = (formData) => (dispatch, getState) => {
   axios
-    .post('http://localhost:5000/api/role', formData, tokenConfig(getState))
+    .post(`${PROXY}/api/role`, formData, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: ADD_ROLE,
@@ -30,7 +32,7 @@ export const addRole = (formData) => (dispatch, getState) => {
 
 export const deleteRole = (id) => (dispatch, getState) => {
   axios
-    .delete(`http://localhost:5000/api/role/${id}`, tokenConfig(getState))
+    .delete(`${PROXY}/api/role/${id}`, tokenConfig(getState))
     .then((res) => {
       dispatch({ type: DELETE_ROLE, payload: res.data });
       dispatch(setAlert('Role deleted successfully', 'success'));
@@ -45,7 +47,7 @@ export const deleteRole = (id) => (dispatch, getState) => {
 
 export const getAllRoles = () => (dispatch, getState) => {
   axios
-    .get('http://localhost:5000/api/role', tokenConfig(getState))
+    .get(`${PROXY}/api/role`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ROLES,
@@ -64,7 +66,7 @@ export const getRoleByTitle = (title) => (dispatch, getState) => {
   dispatch({ type: CLEAR_ROLE });
 
   axios
-    .get(`http://localhost:5000/api/role/title/${title}`, tokenConfig(getState))
+    .get(`${PROXY}/api/role/title/${title}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ROLE,
