@@ -10,9 +10,11 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addJob = (formData) => (dispatch, getState) => {
   axios
-    .post('http://localhost:5000/api/job', formData, tokenConfig(getState))
+    .post(`${PROXY}/api/job`, formData, tokenConfig(getState))
     // .post('http://localhost:8000/job', formData)
     .then((res) => {
       dispatch({
@@ -31,7 +33,7 @@ export const addJob = (formData) => (dispatch, getState) => {
 
 export const deleteJob = (id) => (dispatch, getState) => {
   axios
-    .delete(`http://localhost:5000/api/job/${id}`, tokenConfig(getState))
+    .delete(`${PROXY}/api/job/${id}`, tokenConfig(getState))
     .then((res) => {
       dispatch({ type: DELETE_JOB, payload: res.data });
       dispatch(setAlert('Job deleted successfully', 'success'));
@@ -46,7 +48,7 @@ export const deleteJob = (id) => (dispatch, getState) => {
 
 export const getAllJobs = () => (dispatch, getState) => {
   axios
-    .get('http://localhost:5000/api/job', tokenConfig(getState))
+    .get(`${PROXY}/api/job`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_JOBS,
@@ -65,7 +67,7 @@ export const getJobById = (id) => (dispatch, getState) => {
   dispatch({ type: CLEAR_JOB });
 
   axios
-    .get(`http://localhost:5000/api/job/${id}`, tokenConfig(getState))
+    .get(`${PROXY}/api/job/${id}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_JOB,
@@ -84,7 +86,7 @@ export const getJobByTitle = (title) => (dispatch, getState) => {
   dispatch({ type: CLEAR_JOB });
 
   axios
-    .get(`http://localhost:5000/api/job/title/${title}`, tokenConfig(getState))
+    .get(`${PROXY}/api/job/title/${title}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_JOB,

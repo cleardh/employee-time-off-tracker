@@ -11,9 +11,11 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addCategory = (formData) => (dispatch, getState) => {
   axios
-    .post('http://localhost:5000/api/category', formData, tokenConfig(getState))
+    .post(`${PROXY}/api/category`, formData, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: ADD_CATEGORY,
@@ -31,7 +33,7 @@ export const addCategory = (formData) => (dispatch, getState) => {
 
 export const deleteCategory = (id) => (dispatch, getState) => {
   axios
-    .delete(`http://localhost:5000/api/category/${id}`, tokenConfig(getState))
+    .delete(`${PROXY}/api/category/${id}`, tokenConfig(getState))
     .then((res) => {
       dispatch({ type: DELETE_CATEGORY, payload: res.data });
       dispatch(setAlert('Category deleted successfully', 'success'));
@@ -47,7 +49,7 @@ export const deleteCategory = (id) => (dispatch, getState) => {
 export const updateCategory = (id, newCategory) => (dispatch, getState) => {
   axios
     .put(
-      `http://localhost:5000/api/category/${id}`,
+      `${PROXY}/api/category/${id}`,
       newCategory,
       tokenConfig(getState)
     )
@@ -65,7 +67,7 @@ export const updateCategory = (id, newCategory) => (dispatch, getState) => {
 
 export const getAllCategories = () => (dispatch, getState) => {
   axios
-    .get('http://localhost:5000/api/category', tokenConfig(getState))
+    .get(`${PROXY}/api/category`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_CATEGORIES,
@@ -85,7 +87,7 @@ export const getCategoryByTitle = (title) => (dispatch, getState) => {
 
   axios
     .get(
-      `http://localhost:5000/api/category/title/${title}`,
+      `${PROXY}/api/category/title/${title}`,
       tokenConfig(getState)
     )
     .then((res) =>

@@ -10,9 +10,11 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const addLevel = (formData) => (dispatch, getState) => {
   axios
-    .post('http://localhost:5000/api/level', formData, tokenConfig(getState))
+    .post(`${PROXY}/api/level`, formData, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: ADD_LEVEL,
@@ -30,7 +32,7 @@ export const addLevel = (formData) => (dispatch, getState) => {
 
 export const deleteLevel = (id) => (dispatch, getState) => {
   axios
-    .delete(`http://localhost:5000/api/level/${id}`, tokenConfig(getState))
+    .delete(`${PROXY}/api/level/${id}`, tokenConfig(getState))
     .then((res) => {
       dispatch({ type: DELETE_LEVEL, payload: res.data });
       dispatch(setAlert('Level deleted successfully', 'success'));
@@ -45,7 +47,7 @@ export const deleteLevel = (id) => (dispatch, getState) => {
 
 export const getAllLevels = () => (dispatch, getState) => {
   axios
-    .get('http://localhost:5000/api/level', tokenConfig(getState))
+    .get(`${PROXY}/api/level`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_LEVELS,
@@ -65,7 +67,7 @@ export const getLevelByTitle = (title) => (dispatch, getState) => {
 
   axios
     .get(
-      `http://localhost:5000/api/level/title/${title}`,
+      `${PROXY}/api/level/title/${title}`,
       tokenConfig(getState)
     )
     .then((res) =>

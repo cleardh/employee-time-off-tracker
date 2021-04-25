@@ -10,9 +10,11 @@ import {
 import { tokenConfig } from './auth';
 import { setAlert } from './alert';
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:5000';
+
 export const deleteEmployee = (id) => (dispatch, getState) => {
   axios
-    .delete(`http://localhost:5000/api/employee/${id}`, tokenConfig(getState))
+    .delete(`${PROXY}/api/employee/${id}`, tokenConfig(getState))
     .then((res) => dispatch({ type: DELETE_EMPLOYEE, payload: res.data }))
     .catch((err) =>
       dispatch({
@@ -26,7 +28,7 @@ export const getAllEmployees = () => (dispatch, getState) => {
   dispatch({ type: CLEAR_EMPLOYEE });
 
   axios
-    .get('http://localhost:5000/api/employee', tokenConfig(getState))
+    .get(`${PROXY}/api/employee`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_EMPLOYEES,
@@ -45,7 +47,7 @@ export const getCurrentEmployee = () => (dispatch, getState) => {
   dispatch({ type: CLEAR_EMPLOYEE });
 
   axios
-    .get('http://localhost:5000/api/employee/me', tokenConfig(getState))
+    .get(`${PROXY}/api/employee/me`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_EMPLOYEE,
@@ -65,7 +67,7 @@ export const getEmployeeByEmail = (email) => (dispatch, getState) => {
 
   axios
     .get(
-      `http://localhost:5000/api/employee/email/${email}`,
+      `${PROXY}/api/employee/email/${email}`,
       tokenConfig(getState)
     )
     .then((res) => {
@@ -91,7 +93,7 @@ export const updateEmployee = (formData, id) => (dispatch, getState) => {
 
   axios
     .put(
-      `http://localhost:5000/api/employee/${id}`,
+      `${PROXY}/api/employee/${id}`,
       formData,
       tokenConfig(getState)
     )

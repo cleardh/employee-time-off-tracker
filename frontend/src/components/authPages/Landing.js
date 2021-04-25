@@ -25,8 +25,8 @@ function Landing({ login, isAuthenticated }) {
 
         <div className='title'>
           <h1>
-            <i className='fas fa-calendar-alt'></i>&nbsp;Employee Time-off
-            Tracker
+            <i className='fas fa-calendar-alt'></i>&nbsp;
+            Employee Time-off Tracker
           </h1>
         </div>
         <div className='signin'>
