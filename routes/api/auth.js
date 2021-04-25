@@ -5,6 +5,8 @@ const config = require('config');
 const auth = require('../../middleware/auth');
 const Employee = require('../../models/Employee');
 
+const PROXY = process.env.NODE_ENV === 'production' ? 'http://employee-time-off-tracker.herokuapp.com' : 'http://localhost:3000';
+
 // Auth with google
 router.get(
   '/google',
@@ -19,7 +21,7 @@ let currentUser = null;
 router.get(
   '/google/redirect',
   passport.authenticate('google', {
-    failureRedirect: 'http://localhost:3000/'
+    failureRedirect: PROXY
   }),
   (req, res) => {
     currentUser = req.user;
@@ -38,7 +40,7 @@ router.get(
         // console.log(_token);
       }
     );
-    res.redirect('http://localhost:3000/auth');
+    res.redirect(`${PROXY}/auth`);
   }
 );
 
