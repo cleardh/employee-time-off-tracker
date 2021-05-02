@@ -427,22 +427,17 @@ const IndDashboard = ({
               </div>
             </div>
             {/* Start Chart */}
-            {category.categories.length > 0 &&
-              category.categories.map((c, i) => (
-                <div
-                  key={i}
-                  id={`chart${i + 1}`}
-                  style={{ display: c.title === categoryTitle ? '' : 'none' }}
-                >
-                  <Chart
-                    category={c}
-                    requestDays={getConfirmedRequestsByCategory(c._id)}
-                    centerLabel={c.isUnlimited
-                      ? 'Unltd'
-                      : `${getConfirmedRequestsByCategory(c._id)} / ${c.limit}`}
-                  />
-                </div>
-              ))}
+            {category.categories.map(c => c.title === categoryTitle && (
+              <div id={`chart-${c.title}`}>
+                <Chart
+                  category={c}
+                  requestDays={getConfirmedRequestsByCategory(c._id)}
+                  centerLabel={c.isUnlimited
+                    ? 'Unltd'
+                    : `${getConfirmedRequestsByCategory(c._id)} / ${c.limit}`}
+                />
+              </div>
+            ))}
             {/* End Chart */}
           </Card>
           <Card inset rounded className='grid-item'>
