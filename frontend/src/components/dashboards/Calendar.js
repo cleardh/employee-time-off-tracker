@@ -5,6 +5,10 @@ import ReactTooltip from 'react-tooltip';
 import '../../assets/css/calendar.css';
 
 export default class Calendar extends React.Component {
+  // componentDidMount() {
+  //   document.getElementById('');
+  // }
+
   weekdayshort = moment.weekdaysShort();
 
   state = {
@@ -324,10 +328,12 @@ export default class Calendar extends React.Component {
             <div className={isFuture ? 'date' : 'date no-hover'} data-tip data-for={`tooltip${d}`}>
               {d}
             </div>
-            <div
-              className={`overlay-circle ${currentDay}`}
-              style={styles}
-            ></div>
+            <div className='overlay-circle-container'>
+              <div
+                className={`overlay-circle ${currentDay}`}
+                style={styles}
+              ></div>
+            </div>
 
             {findEventsOnSelectedDay(d).length > 0 && (
               <ReactTooltip
