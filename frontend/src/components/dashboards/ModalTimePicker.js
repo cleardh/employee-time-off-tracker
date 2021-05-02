@@ -139,7 +139,7 @@ const ModalTimePicker = ({
                       onChange={(e) => {
                         setIsAllday(!isAllday);
                       }}
-                      disabled={startDate !== endDate && 'true'}
+                      disabled={startDate !== endDate && true}
                     />
                     <label
                       className='custom-control-label'

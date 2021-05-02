@@ -210,25 +210,22 @@ export default class Calendar extends React.Component {
     );
   };
   onDayClick = (e, d) => {
-    this.setState(
-      {
+    this.setState({
         selectedDay: {
           year: this.year(),
           month: this.state.dateObject.format('MM'),
           date: d,
         },
-      },
-      () => {
-        const data = moment(
-          `${this.state.selectedDay.year}-${this.state.selectedDay.month}-${d}`
-        )
-          .tz('America/Toronto')
-          .format('YYYY-MM-DD');
-        this.props.data(data);
+    },() => {
+      const data = moment(
+        `${this.state.selectedDay.year}-${this.state.selectedDay.month}-${d}`
+      )
+        .tz('America/Toronto')
+        .format('YYYY-MM-DD');
+      this.props.data(data);
 
-        console.log('SELECTED DAY: ', data);
-      }
-    );
+      console.log('SELECTED DAY: ', data);
+    });
   };
   render() {
     let weekdayshortname = this.weekdayshort.map((day) => {

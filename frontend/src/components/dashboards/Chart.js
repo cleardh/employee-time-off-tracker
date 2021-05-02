@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import DonutChart from 'react-google-charts';
 
 const Chart = ({ category, requestDays, org, centerLabel }) => {
@@ -7,15 +7,20 @@ const Chart = ({ category, requestDays, org, centerLabel }) => {
       eventName: 'ready',
       callback: ({ chartWrapper, google }) => {
         const chart = chartWrapper.getChart();
-        const id = `${chart.container.id}-label`;
-        if (chart.container.children[id] === undefined) {
+        const chartContainer = chart.container;
+        const id = `${chartContainer.id}-label`;
+        if (chartContainer.children[id] === undefined) {
           const label = document.createElement('div');
           label.id = id;
           label.classList.add('center-label');
-          label.style.top = `${chart.container.getBoundingClientRect().top}px`;
-          label.style.left = `${chart.container.getBoundingClientRect().left}px`;
+          label.style.top = `${chartContainer.getBoundingClientRect().top}px`;
+          label.style.left = `${chartContainer.getBoundingClientRect().left}px`;
           label.innerHTML = centerLabel;
-          chart.container.appendChild(label);
+          chartContainer.appendChild(label);
+          window.addEventListener('scroll', () => {
+            label.style.top = `${chartContainer.getBoundingClientRect().top}px`;
+            label.style.left = `${chartContainer.getBoundingClientRect().left}px`;
+          });
         }
       }
     }
