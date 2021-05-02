@@ -3,7 +3,15 @@ html {
 }
 
 body {
-  background: #eaf1f1;
+  background: #f5f5f5;
+}
+
+button:focus, button:active {
+  outline: none;
+}
+
+svg rect {
+  fill: transparent;
 }
 
 .text-center {
@@ -100,6 +108,10 @@ body {
   padding: 1em;
   justify-items: stretch;
   align-items: center;
+}
+
+.grid-item, .media {
+  background: #f5f5f5 !important;
 }
 
 .grid-item {
@@ -307,6 +319,15 @@ ul {
 .btn-google {
   width: 60%;
   cursor: pointer;
+}
+
+.btn-google:active {
+  animation: scale 1s;
+}
+
+@keyframes scale {
+  from { transform: scale(0.95) };
+  to { transform: scale(1) };
 }
 
 .signin {
@@ -772,15 +793,16 @@ legend {
 }
 
 .center-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 600px;
+  position: fixed;
   font-size: 20px;
   font-weight: 600;
-  position: absolute;
-  top: 464px;
-  left: 275px;
-  width: 80px;
-  height: 30px;
   line-height: 280px;
-  text-align: center;
+  text-align: center;    
 }
 
 .category-dropdown-menu {
