@@ -783,6 +783,17 @@ legend {
   width: 85px;
 }
 
+.overlay-circle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Charts */
 .p-0 {
   padding: 0;
@@ -879,8 +890,6 @@ legend {
 }
 
 .overlay-circle {
-  position: absolute;
-  top: 13px;
   width: 40px;
   height: 40px;
   border: 3px solid transparent;
@@ -898,7 +907,7 @@ legend {
   transition: 0.7s;
 }
 
-.date:not(.no-hover):hover + .overlay-circle {
+.date:not(.no-hover):hover + .overlay-circle-container .overlay-circle {
   border-color: #325d88;
   background: #325d88;
   transition: 0.7s;
@@ -966,100 +975,4 @@ legend {
 
 .delete-msg {
   margin-bottom: 0.7em;
-}
-
-@media only screen and (max-width: 1119px) {
-  .overlay-circle {
-    left: 5px;
-  }
-}
-
-@media only screen and (min-width: 1120px) {
-  .overlay-circle {
-    left: 9px;
-  }
-}
-
-@media only screen and (min-width: 1150px) {
-  .overlay-circle {
-    left: 11px;
-  }
-}
-
-@media only screen and (min-width: 1170px) {
-  .overlay-circle {
-    left: 13px;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .overlay-circle {
-    left: 15px;
-  }
-}
-
-@media only screen and (min-width: 1220px) {
-  .overlay-circle {
-    left: 17px;
-  }
-}
-
-@media only screen and (min-width: 1270px) {
-  .overlay-circle {
-    left: 19.5px;
-  }
-}
-
-@media only screen and (min-width: 1320px) {
-  .overlay-circle {
-    left: 21px;
-  }
-}
-
-@media only screen and (min-width: 1370px) {
-  .overlay-circle {
-    left: 22.5px;
-  }
-}
-
-@media only screen and (min-width: 1420px) {
-  .overlay-circle {
-    left: 25px;
-  }
-}
-
-@media only screen and (min-width: 1470px) {
-  .overlay-circle {
-    left: 26px;
-  }
-}
-
-@media only screen and (min-width: 1520px) {
-  .overlay-circle {
-    left: 28.5px;
-  }
-}
-
-@media only screen and (min-width: 1570px) {
-  .overlay-circle {
-    left: 30px;
-  }
-}
-
-@media only screen and (min-width: 1620px) {
-  .overlay-circle {
-    left: 32px;
-  }
-}
-
-@media only screen and (min-width: 1670px) {
-  .overlay-circle {
-    left: 33.5px;
-  }
-}
-
-@media only screen and (min-width: 1820px) {
-  .overlay-circle {
-    left: 42px;
-  }
 }
