@@ -428,7 +428,7 @@ const IndDashboard = ({
             </div>
             {/* Start Chart */}
             {category.categories.map(c => c.title === categoryTitle && (
-              <div id={`chart-${c.title}`}>
+              <div key={c._id} id={`chart-${c.title}`}>
                 <Chart
                   category={c}
                   requestDays={getConfirmedRequestsByCategory(c._id)}

@@ -233,7 +233,7 @@ export default class Calendar extends React.Component {
     let blanks = [];
     for (let i = 0; i < this.firstDayOfMonth(); i++) {
       blanks.push(
-        <td key={i} className='calendar-day empty'>
+        <td key={uuidv4()} className='calendar-day empty'>
           {''}
         </td>
       );
