@@ -12,13 +12,10 @@ const Chart = ({ category, requestDays, org, centerLabel }) => {
           const label = document.createElement('div');
           label.id = id;
           label.classList.add('center-label');
-          console.log(chart.container.getBoundingClientRect().top, chart.container.getBoundingClientRect().left);
-          label.style.top = chart.container.getBoundingClientRect().top;
-          label.style.left = chart.container.getBoundingClientRect().left;
+          label.style.top = `${chart.container.getBoundingClientRect().top}px`;
+          label.style.left = `${chart.container.getBoundingClientRect().left}px`;
           label.innerHTML = centerLabel;
           chart.container.appendChild(label);
-          label.style.top = chart.container.getBoundingClientRect().top;
-          label.style.left = chart.container.getBoundingClientRect().left;
         }
       }
     }
