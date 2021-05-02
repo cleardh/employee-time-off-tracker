@@ -16,6 +16,8 @@ import {
 } from '../../actions/request';
 import { getEmployeeByEmail } from '../../actions/employee';
 import { setAlert } from '../../actions/alert';
+import { Card, CardContent, Button } from 'ui-neumorphism';
+import 'ui-neumorphism/dist/index.css'
 
 const IndDashboard = ({
   history,
@@ -302,8 +304,31 @@ const IndDashboard = ({
       <Fragment>
         <IndNavbar user={user} />
         <div className='grid-container'>
-          <div className='grid-item info-grid'>
-            <div className='media'>
+          <Card inset rounded className='grid-item info-grid'>
+          {/* <Card>
+            <CardContent>
+              <Subtitle2 secondary style={{ marginBottom: '4px' }} >
+                Word of the day
+              </Subtitle2>
+              <H5>
+                be<span>•</span>nev<span>•</span>o<span>•</span>lent
+              </H5>
+              <Subtitle2 secondary style={{ marginBottom: '12px' }} >
+                adjective
+              </Subtitle2>
+              <Body2>
+                well meaning and kindly.
+                <br />
+                "a benevolent smile"
+              </Body2>
+            </CardContent>
+            <CardAction>
+              <Button text color='var(--primary)'>
+                Learn More
+              </Button>
+            </CardAction>
+          </Card> */}
+              <CardContent className='media'>
               <img
                 src={employee.employee.image}
                 className='align-self-start mr-3'
@@ -333,9 +358,9 @@ const IndDashboard = ({
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
-          <div className='grid-item p-0'>
+              </CardContent>
+            </Card>
+          <Card inset rounded className='grid-item p-0'>
             <div className='chart-header'>
               <div className='btn-group'>
                 <button
@@ -412,17 +437,15 @@ const IndDashboard = ({
                   <Chart
                     category={c}
                     requestDays={getConfirmedRequestsByCategory(c._id)}
-                  />
-                  <div className='center-label'>
-                    {c.isUnlimited
+                    centerLabel={c.isUnlimited
                       ? 'Unltd'
                       : `${getConfirmedRequestsByCategory(c._id)} / ${c.limit}`}
-                  </div>
+                  />
                 </div>
               ))}
             {/* End Chart */}
-          </div>
-          <div className='grid-item'>
+          </Card>
+          <Card inset rounded className='grid-item'>
             <table>
               <tbody>
                 <tr>
@@ -654,7 +677,7 @@ const IndDashboard = ({
                   ))}
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       </Fragment>
     );
